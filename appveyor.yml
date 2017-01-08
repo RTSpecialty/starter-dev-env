@@ -1,0 +1,31 @@
+# Test against this version of Node.js
+environments:
+  matrix:
+  # node.js
+  - node_version: "6"
+
+branches:
+  only:
+  -  master
+  - /v[0-9]+(\.[0-9]+)*/
+
+# Install scripts. (runs after repo cloning)
+install:
+  # Get the latest stable version of Node.js
+  - ps: Install-Product node $env:node_version
+  # install modules
+  - yarn install
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  # run tests
+  - yarn test
+
+# Don't actually build.
+build: off
+
+cache:
+ - node_modules
+ - "%LOCALAPPDATA%/Yarn"
