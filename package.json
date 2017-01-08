@@ -8,17 +8,26 @@
   "license": "MIT",
   "scripts": {
     "prestart": "babel-node scripts/startMessage.js",
-    "start": "npm-run-all --parallel security-check srcServer lint:watch test:watch",
+    "start": "npm-run-all --parallel security-check srcServer lint:watch test:watch mocks:generate mocks:server",
     "srcServer": "babel-node scripts/srcServer.js",
+    "distServer": "babel-node scripts/distServer.js",
     "lint": "esw webpack.config.* src scripts --color",
     "lint:watch": "yarn run lint -- --watch",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel srcServer localtunnel",
     "test": "mocha --reporter progress scripts/testSetup.js \"src/**/*.test.js\"",
-    "test:watch": "yarn run test -- --watch"
+    "test:watch": "yarn run test -- --watch",
+    "mocks:generate": "babel-node scripts/mocks/generate",
+    "mocks:server": "json-server --watch src/server/mocks/db.json --port 3001",
+    "clean-dist": "rimraf ./dist && mkdir dist",
+    "prebuild": "npm-run-all --parallel clean-dist security-check test lint",
+    "build": "babel-node scripts/build.js",
+    "postbuild": "npm-run-all --parallel distServer mocks:server"
   },
-  "dependencies": {},
+  "dependencies": {
+    "whatwg-fetch": "^2.0.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
@@ -37,9 +46,12 @@
     "eslint-plugin-react": "^6.8.0",
     "eslint-watch": "^2.1.14",
     "express": "^4.14.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.26.0",
     "jest": "^18.1.0",
     "jsdom": "^9.9.1",
+    "json-schema-faker": "^0.4.0",
+    "json-server": "^0.9.4",
     "localtunnel": "^1.8.2",
     "mocha": "^3.2.0",
     "npm-run-all": "^4.0.0",
