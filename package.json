@@ -19,7 +19,8 @@
     "test:server": "mocha --reporter progress scripts/testSetup.js \"src/server/**/*.test.js\"",
     "test:server:watch": "yarn run test:server -- --watch",
     "mocks:generate": "babel-node scripts/mocks/generate",
-    "mocks:server": "json-server --watch src/server/mocks/db.json --port 3001"
+    "mocks:server": "json-server --watch src/server/mocks/db.json --port 3001",
+    "install:client": "babel-node scripts/client/install.js"
   },
   "dependencies": {
     "whatwg-fetch": "^2.0.1"
