@@ -38,3 +38,4 @@ jspm_packages
 
 # Webpack dist files
 dist
+src/client-old

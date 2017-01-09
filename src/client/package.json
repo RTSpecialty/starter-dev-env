@@ -1,0 +1,27 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "localtunnel": "^1.8.2",
+    "npm-run-all": "^4.0.0",
+    "nsp": "^2.6.2",
+    "react-scripts": "0.8.4"
+  },
+  "scripts": {
+    "prestart": "yarn run security-check",
+    "start": "npm-run-all --parallel -r test start:server",
+    "start:server": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "security-check": "nsp check",
+    "localtunnel": "lt --port 3000",
+    "share": "npm-run-all --parallel start localtunnel"
+  }
+}
