@@ -39,4 +39,3 @@ jspm_packages
 # Misc
 dist
 src/client-old
-src/server/mocks/db.json
