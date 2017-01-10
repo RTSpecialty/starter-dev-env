@@ -14,6 +14,8 @@
     "lint:watch": "yarn run lint -- --watch",
     "security-check": "nsp check",
     "share": "babel-node scripts/client/share.js",
+    "build": "babel-node scripts/client/build.js",
+    "build:server": "babel-node scripts/buildServer.js",
     "test": "npm-run-all --parallel test:server test:client",
     "test:client": "babel-node scripts/client/test.js",
     "test:server": "mocha --reporter progress scripts/testSetup.js \"src/server/**/*.test.js\"",
