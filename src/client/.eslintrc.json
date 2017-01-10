@@ -1,22 +1,25 @@
 {
-  "root": true,
   "extends": [
     "airbnb",
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
-  "plugins": [],
+  "plugins": [
+    "react"
+  ],
   "parserOptions":{
     "ecmaVersion": 7,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "env":{
     "es6": true,
     "browser": true,
     "node": true,
-    "jest": true,
-    "mocha": true
+    "jest": true
   },
   "rules": {
     "no-console": 1,

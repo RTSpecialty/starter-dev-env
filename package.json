@@ -9,20 +9,22 @@
   "scripts": {
     "prestart": "npm-run-all --parallel security-check mocks:generate",
     "start": "npm-run-all --parallel -r mocks:server start:client",
-    "start:client": "babel-node scripts/client/start.js",
-    "lint": "esw src/server scripts --color",
+    "start:client": "yarn run client start",
+    "lint": "esw src/server src/client/src scripts --color",
     "lint:watch": "yarn run lint -- --watch",
     "security-check": "nsp check",
-    "share": "babel-node scripts/client/share.js",
-    "build": "babel-node scripts/client/build.js",
+    "share": "yarn run client share",
+    "build": "yarn run client build",
+    "clean": "rimraf src/client/build",
     "build:server": "babel-node scripts/buildServer.js",
     "test": "npm-run-all --parallel test:server test:client",
-    "test:client": "babel-node scripts/client/test.js",
+    "test:client": "yarn run client test",
     "test:server": "mocha --reporter progress scripts/testSetup.js \"src/server/**/*.test.js\"",
     "test:server:watch": "yarn run test:server -- --watch",
     "mocks:generate": "babel-node scripts/mocks/generate",
     "mocks:server": "json-server --watch src/server/mocks/db.json --port 3001",
-    "install:client": "babel-node scripts/client/install.js"
+    "install:client": "yarn run client install",
+    "client": "babel-node scripts/client/yarn.js"
   },
   "dependencies": {
     "whatwg-fetch": "^2.0.1"
