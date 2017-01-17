@@ -1,0 +1,9 @@
+/* eslint-disable import/prefer-default-export */
+
+export const API_CALL_BEGIN = 'API_CALL_BEGIN';
+export const API_CALL_ERROR = 'API_CALL_ERROR';
+export const CREATE_COURSE = 'CREATE_COURSE';
+export const LOAD_COURSES_SUCCESS = 'LOAD_COURSES_SUCCESS';
+export const LOAD_AUTHORS_SUCCESS = 'LOAD_AUTHORS_SUCCESS';
+export const CREATE_COURSE_SUCCESS = 'CREATE_COURSE_SUCCESS';
+export const UPDATE_COURSE_SUCCESS = 'UPDATE_COURSE_SUCCESS';

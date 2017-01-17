@@ -1,0 +1,78 @@
+@import "./config";
+@import "~react-toolbox/lib/app_bar/config";
+@import "~react-toolbox/lib/button/config";
+
+a, abbr, address, article, aside, audio, b, blockquote, body, caption, cite, code, dd, del, dfn, dialog, div, dl, dt, em, fieldset, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, p, pre, q, samp, section, small, span, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, ul, var, video {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: $color-text-secondary;
+  text-decoration: none;
+}
+
+hr {
+  margin: 4rem 0;
+  border-top: 1px solid $color-divider;
+}
+
+.appbar {
+  padding-right: 8 * $unit;
+}
+
+.content {
+  position: fixed;
+  top: $appbar-height;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-normal;
+  transition: padding $animation-duration $animation-curve-default;
+}
+
+.navigation {
+  position: fixed;
+  top: $appbar-height;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-high;
+  box-shadow: $content-left-shadow;
+  transition: transform $animation-duration $animation-curve-default;
+}
+
+.root {
+  > .playground {
+    transform: translateX(100%);
+  }
+  > .content {
+    padding-right: 15%;
+    padding-left: 15%;
+  }
+  > .navigation {
+    transform: translateX(0);
+  }
+}
+
+@media(min-width: $media-min-width) {
+  .root {
+    .playground {
+      width: $playground-max-width;
+    }
+    &.with-playground {
+      > .content {
+        padding-right: $playground-max-width;
+        padding-left: $navigation-width;
+      }
+      > .navigation {
+        transform: translateX(0);
+      }
+    }
+  }
+}
