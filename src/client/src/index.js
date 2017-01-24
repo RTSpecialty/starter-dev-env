@@ -3,14 +3,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import configureStore from './store/configure';
-import { loadAuthors } from './actions/authors';
-import { loadCourses } from './actions/courses';
+import { configure, initialize, state } from './store';
 import routes from './routes';
 
-const store = configureStore();
-store.dispatch(loadCourses());
-store.dispatch(loadAuthors());
+const store = initialize(configure(state));
 
 render(
   <Provider store={store}>

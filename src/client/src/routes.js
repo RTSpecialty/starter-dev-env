@@ -1,15 +1,15 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-import App from './containers/App';
-import { Home, About } from './components/Pages';
-import Courses from './containers/Courses';
-import ManageCourse from './containers/ManageCourse';
+import { Route } from 'react-router';
+import { routes as Root } from './modules/common';
+import { routes as User } from './modules/user';
+import { routes as Demo } from './modules/demo';
+import { routes as Agency } from './modules/agency';
 
 export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={Home} />
-    <Route path="courses" component={Courses} />
-    <Route path="course(/:id)" component={ManageCourse} />
-    <Route path="about" component={About} />
+  <Route>
+    {Root}
+    {User}
+    {Demo}
+    {Agency}
   </Route>
 );

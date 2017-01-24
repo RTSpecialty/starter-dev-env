@@ -1,0 +1,98 @@
+@import "./config";
+@import "~react-toolbox/lib/app_bar/config";
+@import "~react-toolbox/lib/button/config";
+
+a {
+  color: $color-text-secondary;
+  text-decoration: none;
+}
+
+hr {
+  margin: 4rem 0;
+  border-top: 1px solid $color-divider;
+}
+
+.appbar {
+  padding-right: 8 * $unit;
+}
+
+.appbarnav {
+  flex-grow: 1;
+  text-align: right;
+  > ul {
+    list-style: none;
+    > li {
+      display: inline-block;
+      > a {
+        @include typo-menu;
+        position: relative;
+        display: inline-block;
+        padding: 0 1.5 * $unit;
+        margin-right: $unit;
+        line-height: $appbar-height;
+        color: $color-primary-contrast;
+        text-decoration: none;
+        &.active:after {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          display: block;
+          width: 100%;
+          height: .3 * $unit;
+          content: '';
+          background-color: $color-accent;
+        }
+      }
+    }
+  }
+}
+
+.content {
+  position: fixed;
+  top: $appbar-height;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-normal;
+  transition: padding $animation-duration $animation-curve-default;
+}
+
+.navigation {
+  position: fixed;
+  top: $appbar-height;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-high;
+  box-shadow: $content-left-shadow;
+  transition: transform $animation-duration $animation-curve-default;
+}
+
+.root {
+  > .playground {
+    transform: translateX(100%);
+  }
+  > .content {
+    padding-right: 15%;
+    padding-left: 15%;
+  }
+  > .navigation {
+    transform: translateX(0);
+  }
+}
+
+@media(min-width: $media-min-width) {
+  .root {
+    .playground {
+      width: $playground-max-width;
+    }
+    &.with-playground {
+      > .content {
+        padding-right: $playground-max-width;
+        padding-left: $navigation-width;
+      }
+      > .navigation {
+        transform: translateX(0);
+      }
+    }
+  }
+}
