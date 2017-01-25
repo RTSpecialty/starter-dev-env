@@ -15,3 +15,7 @@ it('renders without crashing', () => {
   const wrapper = setup();
   expect(wrapper).toBeDefined();
 });
+
+it('it fails horribly', () => {
+  expect(1).toEqual(0);
+});
