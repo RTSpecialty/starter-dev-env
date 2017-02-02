@@ -3,10 +3,12 @@
 
 import chalk from 'chalk';
 
+import { spawn } from 'child_process';
+
 // Skip first two arguments, pass the rest
-const [,, ...params] = process.argv;
+const [,, ...params] = process.argv; // eslint-disable requireSpaceAfterComma
 
 console.log(chalk.green('Starting client yarn...'));
 
-require('child_process')
-  .spawn('yarn', params, { stdio: 'inherit', cwd: 'src/client', shell: true });
+const yarn = spawn('yarn', params, { stdio: 'inherit', cwd: 'src/client', shell: true });
+yarn.on('exit', process.exit);
