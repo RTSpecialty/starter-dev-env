@@ -6,4 +6,4 @@ cache:
     - node_modules
     - src/client/node_modules
 before_script:
-  - yarn run install:client
+  - yarn run client install
