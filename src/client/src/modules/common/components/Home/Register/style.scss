@@ -3,5 +3,39 @@
 }
 
 .input {
-  width: 75%;
+  width: 70%;
+}
+
+.names {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.name {
+  margin: auto;
+  width: 50%;
+}
+
+/* Medium screens */
+@media all and (max-width: 800px) {
+  .input {
+    width: 100%;
+  }
+}
+
+/* Small screens */
+@media all and (max-width: 500px) {
+  .input {
+    width: 100%;
+  }
+  .names {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+  .name {
+    margin: auto;
+    width: 100%;
+  }
 }
