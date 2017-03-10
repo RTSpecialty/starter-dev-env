@@ -1,2 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-export { default as App } from './App';
+export { default as UserAppContainer } from './UserAppContainer';
+export { default as UserAvatarContainer } from './UserAvatarContainer';
+export { default as UserMenuContainer } from './UserMenuContainer';

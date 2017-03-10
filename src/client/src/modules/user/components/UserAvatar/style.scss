@@ -1,0 +1,30 @@
+@import "../globals";
+
+.user {
+  display: block;
+
+}
+
+.user:hover {cursor: hand; cursor: pointer;}
+
+.info {
+  display: inline-block;
+  padding-left: 10px;
+  line-height: 6.4rem;
+  vertical-align: middle;
+}
+
+.name {
+  padding: 0px;
+  margin: 0px;
+  line-height: normal;
+}
+
+.organization {
+  color: $palette-blue-grey-100;
+  font-size: 1.0rem;
+  line-height: normal;
+  text-align: left;
+  padding: 0px;
+  margin: 0px;
+}
