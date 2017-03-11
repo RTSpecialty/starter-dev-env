@@ -4,7 +4,9 @@ import { UserApp } from '../../components';
 
 const props = {
   children: {},
-  router: {},
+  router: {
+    replace: () => {},
+  },
   user: {},
 };
 

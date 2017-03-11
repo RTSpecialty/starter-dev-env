@@ -2,9 +2,9 @@ import { user } from './reducers/state';
 import { loadUser } from './actions/user';
 
 export * as actions from './actions/user';
-export { UserPassword, UserProfile } from './components';
+export { UserApp, UserPassword, UserProfile } from './components';
 export {
-  UserAppContainer as UserApp,
+  UserAppContainer,
   UserAvatarContainer as UserAvatar,
   UserMenuContainer as UserMenu,
 } from './containers';
