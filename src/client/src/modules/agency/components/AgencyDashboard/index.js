@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Button } from 'react-toolbox/lib/button';
 import { Header } from '../../../common';
 import style from './style.scss';
 
-class Welcome extends Component {
+class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
     this.onAddClick = this.onAddClick.bind(this);
@@ -16,18 +15,14 @@ class Welcome extends Component {
   render() {
     return (
       <div className={style.component}>
-        <Header title="Welcome New Agencies" />
-        <Button
-          label="Welcome Home"
-          onClick={this.onAddClick}
-          flat primary />
+        <Header title="Dashboard" />
       </div>
     );
   }
 }
 
-Welcome.propTypes = {
+Dashboard.propTypes = {
   router: PropTypes.object.isRequired,
 };
 
-export default Welcome;
+export default Dashboard;

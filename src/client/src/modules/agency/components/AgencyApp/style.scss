@@ -68,31 +68,11 @@ hr {
 }
 
 .root {
-  > .playground {
-    transform: translateX(100%);
-  }
   > .content {
     padding-right: 15%;
-    padding-left: 15%;
+    padding-left: $navigation-width;
   }
   > .navigation {
     transform: translateX(0);
-  }
-}
-
-@media(min-width: $media-min-width) {
-  .root {
-    .playground {
-      width: $playground-max-width;
-    }
-    &.with-playground {
-      > .content {
-        padding-right: $playground-max-width;
-        padding-left: $navigation-width;
-      }
-      > .navigation {
-        transform: translateX(0);
-      }
-    }
   }
 }
