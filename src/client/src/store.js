@@ -4,14 +4,17 @@ import reduxImmutableStateInviant from 'redux-immutable-state-invariant';
 import rootReducer from './reducers';
 import { loader as demoLoader, state as demoState } from './modules/demo';
 import { state as commonState } from './modules/common';
+import { loader as userLoader, state as userState } from './modules/user';
 
 export const state = {
   ...commonState,
+  ...userState,
   ...demoState,
 };
 
 export function initialize(store) {
   demoLoader(store);
+  userLoader(store);
   return store;
 }
 
