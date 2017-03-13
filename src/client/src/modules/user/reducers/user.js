@@ -9,6 +9,12 @@ export default function userReducer(state = initialState, action) {
     case types.REGISTER_USER_SUCCESS: {
       return action.user;
     }
+    case types.SAVED_USER_SUCCESS: {
+      return action.user;
+    }
+    case types.SAVED_PASSWORD_SUCCESS: {
+      return action.user;
+    }
     case types.LOCAL_USER: {
       return action.user;
     }

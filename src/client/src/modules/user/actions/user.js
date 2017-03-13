@@ -3,9 +3,6 @@ import * as types from '../constants';
 import api from '../api/user';
 import { beginAPICall, errorAPICall } from '../../common';
 
-export const loginUserSuccess = user => ({ type: types.LOGIN_USER_SUCCESS, user });
-export const registerUserSuccess = user => ({ type: types.REGISTER_USER_SUCCESS, user });
-
 export const loadUser = () =>
   dispatch => new Promise((resolve) => {
     const localUser = localStorage.getItem('user');
@@ -22,7 +19,7 @@ export const loginUser = (username, password) =>
     dispatch(beginAPICall());
     api.loginUser(username, password)
       .then((user) => {
-        dispatch(loginUserSuccess(user));
+        dispatch({ type: types.LOGIN_USER_SUCCESS, user });
         localStorage.setItem('user', JSON.stringify(user));
         resolve('Login Successful');
       })
@@ -44,8 +41,36 @@ export const registerUser = saved =>
     dispatch(beginAPICall());
     api.registerUser(saved)
       .then((user) => {
-        dispatch(registerUserSuccess(user));
+        dispatch({ type: types.REGISTER_USER_SUCCESS, user });
         resolve('Registation Successful');
+      })
+      .catch((error) => {
+        dispatch(errorAPICall());
+        reject(error);
+      });
+  });
+
+export const savePassword = (id, password) =>
+  dispatch => new Promise((resolve, reject) => {
+    dispatch(beginAPICall());
+    api.savePassword(id, password)
+      .then((user) => {
+        dispatch({ type: types.SAVED_PASSWORD_SUCCESS, user });
+        resolve('The password was saved.');
+      })
+      .catch((error) => {
+        dispatch(errorAPICall());
+        reject(error);
+      });
+  });
+
+export const saveUser = (id, saved) =>
+  dispatch => new Promise((resolve, reject) => {
+    dispatch(beginAPICall());
+    api.saveUser(id, saved)
+      .then((user) => {
+        dispatch({ type: types.SAVED_USER_SUCCESS, user });
+        resolve('The user profile was saved.');
       })
       .catch((error) => {
         dispatch(errorAPICall());
