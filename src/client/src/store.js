@@ -5,9 +5,11 @@ import rootReducer from './reducers';
 import { loader as demoLoader, state as demoState } from './modules/demo';
 import { state as commonState } from './modules/common';
 import { loader as userLoader, state as userState } from './modules/user';
+import { state as agencyState } from './modules/agency';
 
 export const state = {
   ...commonState,
+  ...agencyState,
   ...userState,
   ...demoState,
 };
