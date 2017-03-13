@@ -1,3 +1,8 @@
+export const LOAD_AGENCY_SUCCESS = 'LOAD_AGENCY_SUCCESS';
+export const NEW_AGENCY_SUCCESS = 'NEW_AGENCY_SUCCESS';
+export const SAVED_AGENCY_SUCCESS = 'SAVED_AGENCY_SUCCESS';
+export const LOGOUT_USER = 'LOGOUT_USER';
+
 export const classifications = [
   { value: 'C-Corp', label: 'C Corporation' },
   { value: 'Individual', label: 'Individual/Sole Proprietorship/Single Member LLC' },
