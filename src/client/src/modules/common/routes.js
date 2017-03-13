@@ -7,6 +7,6 @@ export default (
     <IndexRoute component={Home} />
     <Route path="home(/:id)" component={Home} />
     <Route path="about" component={About} />
-    <Route path="Logoff" component={Logoff} />
+    <Route path="logoff" component={Logoff} />
   </Route>
 );

@@ -1,32 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Card, CardTitle, CardActions } from 'react-toolbox/lib/card';
-import Input from 'react-toolbox/lib/input';
-import { Button } from 'react-toolbox/lib/button';
 import Dialog from 'react-toolbox/lib/dialog';
 import { toastr } from 'react-redux-toastr';
-import validator from 'email-validator';
+import { Form, FormInput, FormButton } from '../../../components';
 import style from './style.scss';
-
-function validate(name, value) {
-  let error = '';
-  switch (name) {
-    case 'firstName': {
-      error = (value.length !== 0) ? '' : 'Please enter your first name';
-      break;
-    }
-    case 'lastName': {
-      error = (value.length !== 0) ? '' : 'Please enter your last name';
-      break;
-    }
-    case 'email': {
-      const valid = validator.validate(value);
-      error = (valid && value.length !== 0) ? '' : 'Please enter a valid email address';
-      break;
-    }
-    default:
-  }
-  return error;
-}
 
 class Register extends Component {
   constructor(props, context) {
@@ -44,7 +21,6 @@ class Register extends Component {
       },
     };
     this.handleDialog = this.handleDialog.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
     this.handleServerError = this.handleServerError.bind(this);
     this.actions = [{ label: 'Ok', onClick: this.handleDialog }];
@@ -55,6 +31,7 @@ class Register extends Component {
   }
 
   handleChange(name, value) {
+    const { validate } = this.props;
     const state = { ...this.state };
     state[name] = value;
     state.errors[name] = validate(name, value);
@@ -72,6 +49,7 @@ class Register extends Component {
   }
 
   handleRegister() {
+    const { actions, validate } = this.props;
     const state = { ...this.state };
     const fields = ['firstName', 'lastName', 'email'];
     const isValid = fields.map((name) => {
@@ -83,7 +61,7 @@ class Register extends Component {
 
     if (isValid) {
       const { firstName, lastName, email: username } = this.state;
-      this.props.actions.registerUser({ firstName, lastName, username })
+      actions.registerUser({ firstName, lastName, username })
         .then(this.handleDialog)
         .catch(this.handleServerError);
     }
@@ -97,10 +75,10 @@ class Register extends Component {
           subtitle="Enter your email to begin the onboading process"
         />
         <div className={style.input}>
-          <form onSubmit={this.handleSubmit} >
+          <Form onSubmit={this.handleRegister} >
             <div className={style.names}>
               <div className={style.name}>
-                <Input
+                <FormInput
                   type="text" label="First Name" icon="account_box" name="firstName"
                   value={this.state.firstName}
                   error={this.state.errors.firstName}
@@ -108,7 +86,7 @@ class Register extends Component {
                   onChange={this.handleChange.bind(this, 'firstName')} />
               </div>
               <div className={style.name}>
-                <Input
+                <FormInput
                   type="text" label="Last Name" name="lastName"
                   value={this.state.lastName}
                   error={this.state.errors.lastName}
@@ -116,20 +94,16 @@ class Register extends Component {
                   onChange={this.handleChange.bind(this, 'lastName')} />
               </div>
             </div>
-            <Input
+            <FormInput
               type="email" label="Email" icon="email" name="username"
               value={this.state.email}
               error={this.state.errors.email}
               disabled={this.state.formDisabled}
               onChange={this.handleChange.bind(this, 'email')} />
-            <input
-              type="submit"
-              style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}
-              tabIndex="-1" />
-          </form>
+          </Form>
         </div>
         <CardActions>
-          <Button
+          <FormButton
             icon="send"
             label="Register"
             onClick={this.handleRegister}
@@ -151,6 +125,7 @@ class Register extends Component {
 
 Register.propTypes = {
   actions: PropTypes.object.isRequired,
+  validate: PropTypes.func.isRequired,
 };
 
 export default Register;
