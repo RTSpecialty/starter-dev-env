@@ -5,13 +5,14 @@ export {
   About,
   Form,
   FormInput,
+  FormInputMask,
   FormDropdown,
   FormAutocomplete,
   FormButton,
   Logo,
   Logoff } from './components';
 export { App, Header, Home } from './containers';
-export { beginAPICallNext, beginAPICall, errorAPICall } from './actions/common';
+export { beginAPICallNext, beginAPICall, errorAPICall } from './actions';
 export { default as routes } from './routes';
 
 export const state = {

@@ -28,6 +28,7 @@ class Register extends Component {
 
   handleDialog() {
     this.setState({ ...this.state, dialogActive: !this.state.dialogActive });
+    this.props.router.push('/user/password/new');
   }
 
   handleChange(name, value) {
@@ -125,6 +126,7 @@ class Register extends Component {
 
 Register.propTypes = {
   actions: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
   validate: PropTypes.func.isRequired,
 };
 

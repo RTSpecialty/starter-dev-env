@@ -5,6 +5,8 @@ export { default as FormDropdown } from 'react-toolbox/lib/dropdown';
 export { default as FormAutocomplete } from 'react-toolbox/lib/autocomplete';
 export { Button as FormButton } from 'react-toolbox/lib/button';
 
+export { default as FormInputMask } from './FormInputMask';
+
 class Form extends Component {
   constructor(props, context) {
     super(props, context);
