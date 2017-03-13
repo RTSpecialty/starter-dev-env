@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import * as types from '../constants';
-import api from '../api/user';
+import api from '../api';
 import { beginAPICall, errorAPICall } from '../../common';
 
 export const loadUser = () =>
@@ -70,6 +70,7 @@ export const saveUser = (id, saved) =>
     api.saveUser(id, saved)
       .then((user) => {
         dispatch({ type: types.SAVED_USER_SUCCESS, user });
+        localStorage.setItem('user', JSON.stringify(user));
         resolve('The user profile was saved.');
       })
       .catch((error) => {

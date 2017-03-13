@@ -1,7 +1,7 @@
 import { user } from './reducers/state';
-import { loadUser } from './actions/user';
+import { loadUser } from './actions';
 
-export * as actions from './actions/user';
+export * as actions from './actions';
 export { UserApp } from './components';
 export {
   UserAppContainer,
