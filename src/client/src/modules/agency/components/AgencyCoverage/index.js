@@ -3,7 +3,7 @@ import { toastr } from 'react-redux-toastr';
 import { Header, Form, FormInput, FormButton } from '../../../common';
 import style from './style.scss';
 
-class AgencyUsers extends Component {
+class AgencyCoverage extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -31,13 +31,13 @@ class AgencyUsers extends Component {
   render() {
     return (
       <div className={style.component}>
-        <Header title="Agency Users" />
-        <p>Please identify your users</p>
+        <Header title="Agency E & O Coverage" />
+        <p>Please enter your E&O carrier and coverage limits</p>
         <div className={style.info}>
           <div className={style.input}>
             <Form onSubmit={this.handleClick} >
               <FormInput
-                type="text" label="User Name" name="name"
+                type="text" label="PlaceHolder" name="name"
                 value={this.state.name}
                 error={this.state.errors.name}
                 onChange={this.handleChange.bind(this, 'name')} />
@@ -50,14 +50,10 @@ class AgencyUsers extends Component {
   }
 }
 
-AgencyUsers.propTypes = {
+AgencyCoverage.propTypes = {
   router: PropTypes.object.isRequired,
-  validate: PropTypes.func,
+  validate: PropTypes.func.isRequired,
   next: PropTypes.string.isRequired,
 };
 
-AgencyUsers.defaultProps = {
-  validate: () => '',
-};
-
-export default AgencyUsers;
+export default AgencyCoverage;

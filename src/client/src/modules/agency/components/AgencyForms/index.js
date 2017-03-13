@@ -1,12 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Input from 'react-toolbox/lib/input';
-// import Dropdown from 'react-toolbox/lib/dropdown';
-import { Button } from 'react-toolbox/lib/button';
 import { toastr } from 'react-redux-toastr';
-import { Header } from '../../../common';
+import { Header, Form, FormInput, FormButton } from '../../../common';
 import style from './style.scss';
-
-const validate = () => '';
 
 class AgencyForms extends Component {
   constructor(props, context) {
@@ -21,13 +16,15 @@ class AgencyForms extends Component {
   }
 
   handleClick() {
+    const { router, next } = this.props;
     toastr.success('Bam!', this.state.name);
+    router.push(next);
   }
 
   handleChange(name, value) {
     const state = { ...this.state };
     state[name] = value;
-    state.errors[name] = validate(name, value);
+    state.errors[name] = this.props.validate(name, value);
     this.setState(state);
   }
 
@@ -38,13 +35,15 @@ class AgencyForms extends Component {
         <p>Producer agreement and W-9</p>
         <div className={style.info}>
           <div className={style.input}>
-            <Input
-              type="text" label="PlaceHolder" name="name"
-              value={this.state.name}
-              error={this.state.errors.name}
-              onChange={this.handleChange.bind(this, 'name')} />
+            <Form onSubmit={this.handleClick} >
+              <FormInput
+                type="text" label="PlaceHolder" name="name"
+                value={this.state.name}
+                error={this.state.errors.name}
+                onChange={this.handleChange.bind(this, 'name')} />
+            </Form>
           </div>
-          <Button icon="play_arrow" label="Continue" onClick={this.handleClick} />
+          <FormButton icon="play_arrow" label="Continue" onClick={this.handleClick} />
         </div>
       </div>
     );
@@ -53,6 +52,12 @@ class AgencyForms extends Component {
 
 AgencyForms.propTypes = {
   router: PropTypes.object.isRequired,
+  validate: PropTypes.func,
+  next: PropTypes.string.isRequired,
+};
+
+AgencyForms.defaultProps = {
+  validate: () => '',
 };
 
 export default AgencyForms;
