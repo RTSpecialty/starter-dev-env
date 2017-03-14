@@ -1,18 +1,22 @@
 
 import React, { PropTypes } from 'react';
-import { List, ListItem } from 'react-toolbox';
+import { List, ListSubHeader, ListItem } from 'react-toolbox';
 import classnames from 'classnames';
 import { components } from '../../../components';
 import style from './style.scss';
 
-const MainNav = ({ className }, { router }) => {
+const MainNav = ({ className, router, auth, completed }) => {
   const drawerItems = Object.keys(components).map((key) => {
     const isActive = router.isActive(components[key].path);
+    const isAuthorized = auth.agency && auth.agency.includes(key);
+    const isCompleted = completed.agency && completed.agency.includes(key);
     return (
       <ListItem
         key={key}
-        caption={components[key].name}
+        caption={components[key].caption}
+        legend={(isCompleted) ? '✔ Completed' : null}
         className={classnames(style.item, { [style.active]: isActive })}
+        disabled={!isAuthorized}
         selectable
         onClick={() => { router.push(components[key].path); }}
       />
@@ -22,6 +26,7 @@ const MainNav = ({ className }, { router }) => {
   return (
     <aside className={classnames(style.root, { [className]: className })}>
       <List className={style.list} selectable ripple>
+        <ListSubHeader caption="Agency Onboarding" />
         {drawerItems}
       </List>
       <footer className={style.footer}>
@@ -33,14 +38,14 @@ const MainNav = ({ className }, { router }) => {
 
 MainNav.propTypes = {
   className: PropTypes.string,
+  router: PropTypes.object.isRequired,
+  // user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  completed: PropTypes.object.isRequired,
 };
 
 MainNav.defaultProps = {
   className: '',
-};
-
-MainNav.contextTypes = {
-  router: PropTypes.object,
 };
 
 export default MainNav;

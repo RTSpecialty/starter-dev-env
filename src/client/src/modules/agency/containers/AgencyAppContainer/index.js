@@ -14,7 +14,9 @@ const wrapper = props => (
 function mapStateToProps(state, props) {
   return {
     children: props.children,
+    auth: state.auth,
     user: state.user,
+    completed: state.completed,
   };
 }
 

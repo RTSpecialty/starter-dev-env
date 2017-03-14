@@ -22,14 +22,8 @@ const getAgencyFromTaxId = (taxId) => {
   return (id !== -1) ? agencies[id] : null;
 };
 
-const defaultAgency = {
-  id: 0,
-  name: '',
-  taxId: '',
-};
-
 const storeAgency = (id, saved) => {
-  const agency = { ...defaultAgency, ...saved };
+  const agency = { ...saved };
   if (id) {
     agencies[id] = agency;
   } else {
@@ -41,12 +35,19 @@ const storeAgency = (id, saved) => {
   return agency;
 };
 
+const defaultAgency = {
+  id: 0,
+  status: 'new',
+  agencyName: '',
+  taxId: '',
+};
+
 class AgencyApi {
   static loadAgency(id) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (!agencies[id]) {
-          return reject('Agency not found');
+          return reject(new Error('Agency not found'));
         }
 
         const agency = { ...agencies[id] };
@@ -60,15 +61,9 @@ class AgencyApi {
       const agency = { ...defaultAgency, ...saved };
       setTimeout(() => {
         // Simulate server-side validation
-        const minNameLength = 2;
-
-        if (agency.name.length < minNameLength) {
-          return reject(`Agency Name must be at least ${minNameLength} characters.`);
-        }
-
         const existing = getAgencyFromTaxId(agency.taxId);
         if (existing) {
-          return reject('That Agency Tax ID has already been registered.');
+          return reject(new Error('That Agency Tax ID has already been registered.'));
         }
 
         return resolve(storeAgency(null, agency));
@@ -80,7 +75,7 @@ class AgencyApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (!agencies[id]) {
-          return reject('Agency not found');
+          return reject(new Error('Agency not found'));
         }
 
         const agency = { ...agencies[id], ...saved };

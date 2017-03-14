@@ -4,12 +4,14 @@ import { actions as agency, validate } from '../../../agency';
 import { actions as user } from '../../../user';
 import { components } from '../../components';
 
-function mapStateToProps(next) {
+function mapStateToProps(meta) {
   return state => ({
     agency: state.agency,
+    auth: state.auth,
     user: state.user,
+    completed: state.completed,
     validate,
-    next,
+    meta,
   });
 }
 
@@ -21,8 +23,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 const AgencyWrapper = (name, component) => {
-  const { next } = components[name];
-  return connect(mapStateToProps(next), mapDispatchToProps)(component);
+  const meta = components[name];
+  return connect(mapStateToProps(meta), mapDispatchToProps)(component);
 };
 
 export default AgencyWrapper;

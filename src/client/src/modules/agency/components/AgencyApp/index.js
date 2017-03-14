@@ -11,11 +11,15 @@ class AgencyApp extends UserApp {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, router, auth, completed } = this.props;
     return (
       <div className={style.root}>
         <AppBar className={style.appbar} navigation={this.navigation()} />
-        <MainNav className={style.navigation} />
+        <MainNav
+          className={style.navigation}
+          router={router}
+          auth={auth}
+          completed={completed} />
         <article className={style.content}>
           {children}
         </article>
@@ -26,8 +30,10 @@ class AgencyApp extends UserApp {
 
 AgencyApp.propTypes = {
   children: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
+  // user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  completed: PropTypes.object.isRequired,
 };
 
 export default AgencyApp;

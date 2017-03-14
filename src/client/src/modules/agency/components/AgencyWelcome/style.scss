@@ -27,6 +27,16 @@ $documentation-table-font-size: 1.4 * $unit;
   }
 }
 
+.buttons {
+  margin-top: 20px;
+  > .left {
+    margin-left: 5px;
+  }
+  > .right {
+    margin-left: 20px;
+  }
+}
+
 .info {
   padding: 20px;
   width: 90%;
@@ -34,6 +44,18 @@ $documentation-table-font-size: 1.4 * $unit;
 
 .input {
   width: 70%;
+}
+
+.names {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.name {
+  margin: auto;
+  width: 50%;
 }
 
 /* Medium screens */
