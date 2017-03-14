@@ -27,8 +27,12 @@ class Register extends Component {
   }
 
   handleDialog() {
-    this.setState({ ...this.state, dialogActive: !this.state.dialogActive });
-    this.props.router.push('/user/password/new');
+    const state = { ...this.state };
+    this.setState({ ...state, dialogActive: !this.state.dialogActive });
+    // Termporary redirect until we implement tokens
+    if (state.dialogActive) {
+      this.props.router.push('/user/password/new');
+    }
   }
 
   handleChange(name, value) {
@@ -46,7 +50,7 @@ class Register extends Component {
 
   handleServerError(error) {
     this.setState({ ...this.state, formDisabled: false });
-    toastr.error('Oops!', error);
+    toastr.error('Oops!', error.message);
   }
 
   handleRegister() {

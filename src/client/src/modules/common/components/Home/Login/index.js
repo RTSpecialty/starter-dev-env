@@ -40,7 +40,7 @@ class Login extends Component {
       const { router, actions } = this.props;
       actions.loginUser(email, password)
         .then(() => router.push('/agency/welcome'))
-        .catch(error => toastr.error('Oops!', error));
+        .catch(error => toastr.error('Oops!', error.message));
     }
   }
 
