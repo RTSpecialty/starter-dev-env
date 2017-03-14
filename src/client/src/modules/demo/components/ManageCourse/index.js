@@ -40,7 +40,7 @@ class ManageCourse extends Component {
       })
       .catch((error) => {
         this.setState({ saving: false });
-        toastr.error('Oops!', error);
+        toastr.error('Oops!', error.message);
       });
   }
 

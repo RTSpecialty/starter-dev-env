@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as toastr } from 'react-redux-toastr';
 import { activeAPICalls } from './modules/common/reducers';
-import { user } from './modules/user/reducers';
+import { auth, user, completed } from './modules/user/reducers';
 import { agency } from './modules/agency/reducers';
 import { authors, courses } from './modules/demo/reducers';
 
@@ -11,7 +11,9 @@ const rootReducer = combineReducers({
   courses,
   toastr,
   agency,
+  auth,
   user,
+  completed,
 });
 
 export default rootReducer;
