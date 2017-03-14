@@ -42,6 +42,7 @@ export const registerUser = saved =>
     api.registerUser(saved)
       .then((user) => {
         dispatch({ type: types.REGISTER_USER_SUCCESS, user });
+        localStorage.setItem('user', JSON.stringify(user));
         resolve('Registation Successful');
       })
       .catch((error) => {
@@ -56,6 +57,7 @@ export const savePassword = (id, password) =>
     api.savePassword(id, password)
       .then((user) => {
         dispatch({ type: types.SAVED_PASSWORD_SUCCESS, user });
+        localStorage.setItem('user', JSON.stringify(user));
         resolve('The password was saved.');
       })
       .catch((error) => {
@@ -72,6 +74,36 @@ export const saveUser = (id, saved) =>
         dispatch({ type: types.SAVED_USER_SUCCESS, user });
         localStorage.setItem('user', JSON.stringify(user));
         resolve('The user profile was saved.');
+      })
+      .catch((error) => {
+        dispatch(errorAPICall());
+        reject(error);
+      });
+  });
+
+export const addAuth = (id, scope, role) =>
+  dispatch => new Promise((resolve, reject) => {
+    dispatch(beginAPICall());
+    api.addAuth(id, scope, role)
+      .then((user) => {
+        dispatch({ type: types.SAVED_AUTH_SUCCESS, user });
+        localStorage.setItem('user', JSON.stringify(user));
+        resolve('The user authorization was saved.');
+      })
+      .catch((error) => {
+        dispatch(errorAPICall());
+        reject(error);
+      });
+  });
+
+export const addCompleted = (id, scope, component) =>
+  dispatch => new Promise((resolve, reject) => {
+    dispatch(beginAPICall());
+    api.addCompleted(id, scope, component)
+      .then((user) => {
+        dispatch({ type: types.SAVED_COMPLETED_SUCCESS, user });
+        localStorage.setItem('user', JSON.stringify(user));
+        resolve(`The ${scope} ${component} was completed.`);
       })
       .catch((error) => {
         dispatch(errorAPICall());

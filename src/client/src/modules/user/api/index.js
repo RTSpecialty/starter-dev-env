@@ -22,14 +22,8 @@ const getUserFromUsername = (username) => {
   return (id !== -1) ? users[id] : null;
 };
 
-const defaultUser = {
-  id: 0,
-  type: 'agent',
-  organization: 'New User',
-};
-
 const storeUser = (id, saved) => {
-  const user = { ...defaultUser, ...saved };
+  const user = { ...saved };
   if (id) {
     users[id] = user;
   } else {
@@ -41,6 +35,15 @@ const storeUser = (id, saved) => {
   return { ...user, password: null }; // cleanse data
 };
 
+const defaultUser = {
+  id: 0,
+  status: 'new',
+  type: 'agent',
+  auth: { agency: ['welcome'] },
+  completed: { agency: [] },
+  organization: 'New User',
+};
+
 class UserApi {
   static loginUser(username, password) {
     return new Promise((resolve, reject) => {
@@ -50,7 +53,7 @@ class UserApi {
           delete user.password;
           resolve(user);
         } else {
-          reject('Login Failed');
+          reject(new Error('Login Failed'));
         }
       }, delay);
     });
@@ -64,16 +67,16 @@ class UserApi {
         const minUserNameLength = 2;
 
         if (user.firstName.length < minUserNameLength) {
-          return reject(`First Name must be at least ${minUserNameLength} characters.`);
+          return reject(new Error(`First Name must be at least ${minUserNameLength} characters.`));
         }
 
         if (user.lastName.length < minUserNameLength) {
-          return reject(`Last Name must be at least ${minUserNameLength} characters.`);
+          return reject(new Error(`Last Name must be at least ${minUserNameLength} characters.`));
         }
 
         const existing = getUserFromUsername(user.username);
         if (existing) {
-          return reject('That email has already been registered.');
+          return reject(new Error('That email has already been registered.'));
         }
 
         return resolve(storeUser(null, user));
@@ -85,16 +88,17 @@ class UserApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (!users[id]) {
-          return reject('User not found');
+          return reject(new Error('User not found'));
         }
 
         // Simulate server-side validation
         const minPasswordLength = 8;
         if (password < minPasswordLength) {
-          return reject(`Password must be at least ${minPasswordLength} characters.`);
+          return reject(new Error(`Password must be at least ${minPasswordLength} characters.`));
         }
-
-        return resolve(storeUser(id, { ...users[id], password }));
+        const user = { ...users[id], password };
+        user.status = (user.status === 'new') ? 'active' : user.status;
+        return resolve(storeUser(id, user));
       }, delay);
     });
   }
@@ -103,26 +107,70 @@ class UserApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (!users[id]) {
-          return reject('User not found');
+          return reject(new Error('User not found'));
         }
 
         const user = { ...users[id], ...saved };
         // Simulate server-side validation
         const minUserNameLength = 2;
         if (user.firstName.length < minUserNameLength) {
-          return reject(`First Name must be at least ${minUserNameLength} characters.`);
+          return reject(new Error(`First Name must be at least ${minUserNameLength} characters.`));
         }
 
         if (user.lastName.length < minUserNameLength) {
-          return reject(`Last Name must be at least ${minUserNameLength} characters.`);
+          return reject(new Error(`Last Name must be at least ${minUserNameLength} characters.`));
         }
 
         const existing = getUserFromUsername(user.username);
         if (existing.id !== user.id) {
-          return reject('That email has already been registered.');
+          return reject(new Error('That email has already been registered.'));
         }
 
         return resolve(storeUser(id, user));
+      }, delay);
+    });
+  }
+
+  static addAuth(id, scope, role) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (!users[id]) {
+          return reject(new Error('User not found'));
+        }
+
+        const user = { ...users[id] };
+        const auth = { ...user.auth };
+        const roles = [...auth[scope]];
+        if (!roles.includes(role)) {
+          roles.push(role);
+          auth[scope] = roles;
+          user.auth = auth;
+          return resolve(storeUser(id, user));
+        }
+
+        return resolve(user);
+      }, delay);
+    });
+  }
+
+  static addCompleted(id, scope, component) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (!users[id]) {
+          return reject(new Error('User not found'));
+        }
+
+        const user = { ...users[id] };
+        const completed = { ...user.completed };
+        const components = [...completed[scope]];
+        if (!components.includes(component)) {
+          components.push(component);
+          completed[scope] = components;
+          user.completed = completed;
+          return resolve(storeUser(id, user));
+        }
+
+        return resolve(user);
       }, delay);
     });
   }

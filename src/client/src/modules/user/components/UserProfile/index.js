@@ -65,7 +65,7 @@ class Profile extends Component {
 
   handleServerError(error) {
     this.setState({ ...this.state, formDisabled: false });
-    toastr.error('Oops!', error);
+    toastr.error('Oops!', error.message);
   }
 
   render() {

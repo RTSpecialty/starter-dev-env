@@ -1,4 +1,4 @@
-import { user } from './reducers/state';
+import { auth, user, completed } from './reducers/state';
 import { loadUser } from './actions';
 
 export * as actions from './actions';
@@ -18,5 +18,7 @@ export function loader(store) {
 }
 
 export const state = {
+  auth,
   user,
+  completed,
 };
