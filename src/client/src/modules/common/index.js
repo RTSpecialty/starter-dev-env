@@ -8,6 +8,7 @@ export {
   FormInputMask,
   FormDropdown,
   FormAutocomplete,
+  FormDatePicker,
   FormButton,
   Logo,
   Logoff } from './components';

@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export { default as FormInput } from 'react-toolbox/lib/input';
 export { default as FormDropdown } from 'react-toolbox/lib/dropdown';
 export { default as FormAutocomplete } from 'react-toolbox/lib/autocomplete';
+export { default as FormDatePicker } from 'react-toolbox/lib/date_picker';
 export { Button as FormButton } from 'react-toolbox/lib/button';
 
 export { default as FormInputMask } from './FormInputMask';
