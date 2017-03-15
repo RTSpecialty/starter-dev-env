@@ -8,6 +8,7 @@
     "classnames": "^2.2.5",
     "email-validator": "^1.0.7",
     "gravatar": "^1.6.0",
+    "numeral": "^2.0.4",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-css-themr": "^2.0.0",
