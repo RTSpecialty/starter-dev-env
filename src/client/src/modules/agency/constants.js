@@ -12,7 +12,31 @@ export const classifications = [
   { value: 'LLC-C-Corp', label: 'Limited Liability Company (C-Corporation)' },
   { value: 'LLC-S-Corp', label: 'Limited Liability Company (S-Corporation)' },
   { value: 'LLC-Partnership', label: 'Limited Liability Company (Partnership)' },
-  { value: 'Other', label: 'Other' },
+  { value: 'Other', label: 'Other - Not Listed' },
+];
+
+export const carriers = [
+  { value: 'Admiral Insurance Company', label: 'Admiral Insurance Company' },
+  { value: 'AIG Specialty', label: 'AIG Specialty' },
+  { value: 'Allied World', label: 'Allied World' },
+  { value: 'American Alternative Insurance Corp', label: 'American Alternative Insurance Corp' },
+  { value: 'American Automobile Ins Co', label: 'American Automobile Ins Co' },
+  { value: 'Arch', label: 'Arch' },
+  { value: 'Berkley Assurance', label: 'Berkley Assurance' },
+  { value: 'Capitol Specialty', label: 'Capitol Specialty' },
+  { value: 'Certain Underwriters at Lloyd\'s', label: 'Certain Underwriters at Lloyd\'s' },
+  { value: 'Endurance American', label: 'Endurance American' },
+  { value: 'Everest National', label: 'Everest National' },
+  { value: 'General Insurance Co of America', label: 'General Insurance Co of America' },
+  { value: 'Great American E&S', label: 'Great American E&S' },
+  { value: 'Homeland Ins Company of New York', label: 'Homeland Ins Company of New York' },
+  { value: 'Indian Harbor', label: 'Indian Harbor' },
+  { value: 'Navigators', label: 'Navigators' },
+  { value: 'Scottsdale Indemnity', label: 'Scottsdale Indemnity' },
+  { value: 'Utica', label: 'Utica' },
+  { value: 'Westport', label: 'Westport' },
+  { value: 'XL Specialty', label: 'XL Specialty' },
+  { value: 'Other', label: 'Other - Not Listed' },
 ];
 
 export const states = {

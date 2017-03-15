@@ -8,7 +8,7 @@ class Welcome extends Component {
   constructor(props, context) {
     super(props, context);
     this.isAuthorized();
-    const { agencyName = '', firstName = '', lastName = '', classification = '', other = '', taxId = '' } = this.props.agency;
+    const { agencyName = '', firstName = '', lastName = '', classification = '', otherClass = '', taxId = '' } = this.props.agency;
     this.state = {
       formDisabled: false,
       formChanged: false,
@@ -16,14 +16,14 @@ class Welcome extends Component {
       firstName,
       lastName,
       classification,
-      other,
+      otherClass,
       taxId,
       errors: {
         agencyName: '',
         firstName: '',
         lastName: '',
         classification: '',
-        other: '',
+        otherClass: '',
         taxId: '',
       },
     };
@@ -35,8 +35,15 @@ class Welcome extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { agencyName, firstName, lastName, classification, other, taxId } = nextProps.agency;
-    this.setState({ ...this.state, agencyName, firstName, lastName, classification, other, taxId });
+    const { agencyName, firstName, lastName, classification, otherClass, taxId } = nextProps.agency;
+    this.setState({
+      ...this.state,
+      agencyName,
+      firstName,
+      lastName,
+      classification,
+      otherClass,
+      taxId });
   }
 
   isAuthorized() {
@@ -56,7 +63,7 @@ class Welcome extends Component {
   }
 
   validate(name, value) {
-    if (name === 'other' && this.state.classification === 'Other') {
+    if (name === 'otherClass' && this.state.classification === 'Other') {
       return (value && value.length !== 0) ? '' : 'Please describe your classification';
     } else if (name === 'firstName' && this.state.classification === 'Individual') {
       return (value && value.length !== 0) ? '' : 'Please enter a first name';
@@ -86,7 +93,7 @@ class Welcome extends Component {
   handleSave() {
     const { router, meta, agency, actions: { newAgency, saveAgency } } = this.props;
     const state = { ...this.state };
-    const fields = ['agencyName', 'firstName', 'lastName', 'classification', 'other', 'taxId'];
+    const fields = ['agencyName', 'firstName', 'lastName', 'classification', 'otherClass', 'taxId'];
     const isValid = fields.map((name) => {
       state.errors[name] = this.validate(name, state[name]);
       return state.errors[name].length === 0;
@@ -96,16 +103,17 @@ class Welcome extends Component {
     this.setState(state);
 
     if (isValid) {
-      const { agencyName, firstName, lastName, classification, other, taxId } = state;
+      const { agencyName, firstName, lastName, classification, otherClass, taxId } = state;
       if (agency.id) {
-        saveAgency(agency.id, { agencyName, firstName, lastName, classification, other, taxId })
+        saveAgency(agency.id,
+          { agencyName, firstName, lastName, classification, otherClass, taxId })
           .then(({ msg }) => {
             toastr.success('Success!', msg);
             router.push(meta.next.path);
           })
           .catch(this.handleServerError);
       } else {
-        newAgency({ agencyName, firstName, lastName, classification, other, taxId })
+        newAgency({ agencyName, firstName, lastName, classification, otherClass, taxId })
           .then(this.handleComplete)
           .catch(this.handleServerError);
       }
@@ -155,11 +163,11 @@ class Welcome extends Component {
       ? ''
       : (
         <FormInput
-          type="text" label="&quot;Other&quot; Federal Tax Classification" name="other"
-          value={this.state.other}
-          error={this.state.errors.other}
+          type="text" label="&quot;Other&quot; Federal Tax Classification" name="otherClass"
+          value={this.state.otherClass}
+          error={this.state.errors.otherClass}
           disabled={this.state.formDisabled}
-          onChange={this.handleChange.bind(this, 'other')} />
+          onChange={this.handleChange.bind(this, 'otherClass')} />
         );
   }
 
