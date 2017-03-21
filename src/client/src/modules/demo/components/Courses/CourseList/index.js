@@ -16,7 +16,7 @@ function getSource(courses) {
     source.watchHref = (
       <a href={course.watchHref} rel="noopener noreferrer" target="_blank">Watch</a>
     );
-    source.title = <Link to={`/course/${course.id}`}>{course.title}</Link>;
+    source.title = <Link to={`/demo/course/${course.id}`}>{course.title}</Link>;
     return source;
   });
 }
