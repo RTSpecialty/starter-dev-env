@@ -1,32 +1,36 @@
 import React, { Component, PropTypes } from 'react';
 import { toastr } from 'react-redux-toastr';
-import { Header, Form, FormInput, FormButton } from '../../../common';
+import { Header, Form, FormInput, FormButton, Address } from '../../../common';
 import style from './style.scss';
+
+const getValues = ({ locationName = '', line1 = '', line2 = '', locality = '', region = '', postalCode = '' }) =>
+  ({ locationName, line1, line2, locality, region, postalCode });
+
+const getFields = () => Object.keys(getValues({}));
 
 class AgencyLocations extends Component {
   constructor(props, context) {
     super(props, context);
     this.isAuthorized();
-    const { placeholder = '' } = this.props.agency;
     this.state = {
       formDisabled: false,
       formChanged: false,
-      placeholder,
-      errors: {
-        placeholder: '',
-      },
+      values: getValues(this.props.agency),
+      errors: getValues({}),
     };
     this.validate = this.validate.bind(this);
     this.handleBack = this.handleBack.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
     this.handleServerError = this.handleServerError.bind(this);
+    this.onChange = {};
+    getFields().map(name => (this.onChange[name] = this.handleChange.bind(this, name)));
     this.loadAgency();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { placeholder } = nextProps.agency;
-    this.setState({ ...this.state, placeholder });
+    const values = { ...getValues(nextProps.agency), locationName: 'Home Office' };
+    this.setState({ ...this.state, values });
   }
 
   isAuthorized() {
@@ -77,9 +81,8 @@ class AgencyLocations extends Component {
   handleSave() {
     const { agency, actions: { saveAgency } } = this.props;
     const state = { ...this.state };
-    const fields = ['placeholder'];
-    const isValid = fields.map((name) => {
-      state.errors[name] = this.validate(name, state[name]);
+    const isValid = getFields().map((name) => {
+      state.errors[name] = this.validate(name, state.values[name]);
       return state.errors[name].length === 0;
     }).reduce((valid, value) => valid && value, true);
     state.formDisabled = isValid;
@@ -87,8 +90,7 @@ class AgencyLocations extends Component {
     this.setState(state);
 
     if (isValid) {
-      const { placeholder } = state;
-      saveAgency(agency.id, { placeholder })
+      saveAgency(agency.id, state.values)
         .then(this.handleComplete)
         .catch(this.handleServerError);
     }
@@ -96,7 +98,7 @@ class AgencyLocations extends Component {
 
   handleChange(name, value) {
     const state = { ...this.state };
-    state[name] = value;
+    state.values[name] = value;
     state.errors[name] = this.validate(name, value);
     state.formChanged = true;
     this.setState(state);
@@ -116,11 +118,16 @@ class AgencyLocations extends Component {
           <div className={style.input}>
             <Form onSubmit={this.handleClick} >
               <FormInput
-                type="text" label="PlaceHolder" name="placeholder"
-                value={this.state.placeholder}
-                error={this.state.errors.placeholder}
+                type="text" label="Location Name" name="locationName"
+                value={this.state.values.locationName}
+                error={this.state.errors.locationName}
                 disabled={this.state.formDisabled}
-                onChange={this.handleChange.bind(this, 'placeholder')} />
+                onChange={this.onChange.locationName} />
+              <Address
+                values={this.state.values}
+                errors={this.state.errors}
+                disabled={this.state.formDisabled}
+                onChange={this.onChange} />
             </Form>
           </div>
           <div className={style.buttons}>
