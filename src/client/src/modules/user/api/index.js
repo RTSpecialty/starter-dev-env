@@ -61,7 +61,7 @@ class UserApi {
 
   static registerUser(saved) {
     return new Promise((resolve, reject) => {
-      const user = { ...defaultUser, ...saved };
+      const user = { ...defaultUser, ...saved, username: saved.username.toLowerCase() };
       setTimeout(() => {
         // Simulate server-side validation
         const minUserNameLength = 2;
