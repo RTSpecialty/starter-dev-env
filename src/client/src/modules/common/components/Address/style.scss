@@ -1,0 +1,63 @@
+.address {
+  // padding: 20px;
+}
+
+.lines {}
+
+.input {
+  // width: 70%;
+}
+
+.citystatezip {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.city {
+  // margin: auto;
+  padding-left: 0px;
+  width: 60%;
+}
+
+.state {
+  margin: auto;
+  width: 15%;
+}
+
+.zip {
+  // margin: auto;
+  padding-right: 0px;
+  width: 15%;
+}
+
+/* Medium screens */
+@media all and (max-width: 800px) {
+  .input {
+    width: 100%;
+  }
+}
+
+/* Small screens */
+@media all and (max-width: 500px) {
+  .input {
+    width: 100%;
+  }
+  .citystatezip {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+  .city {
+    margin: auto;
+    width: 100%;
+  }
+  .state {
+    margin: auto;
+    width: 100%;
+  }
+  .zip {
+    margin: auto;
+    width: 100%;
+  }
+}

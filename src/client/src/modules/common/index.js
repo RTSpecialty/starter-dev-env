@@ -1,8 +1,9 @@
 import { activeAPICalls } from './reducers/state';
 
 export {
-  AppBar,
   About,
+  Address,
+  AppBar,
   Form,
   FormInput,
   FormInputMask,
